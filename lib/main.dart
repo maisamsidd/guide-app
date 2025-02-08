@@ -4,6 +4,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:guide_app/Authentication/build_profile.dart';
 import 'package:guide_app/Authentication/login_page.dart';
 import 'package:guide_app/VIews/HomePage/home_page.dart';
+import 'package:guide_app/VIews/SplashScreen/splashScreen.dart';
 import 'package:guide_app/firebase_options.dart';
 
 late Size mq;
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         centerTitle: true,
       )),
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: SplashScreen(),
     );
   }
 }
