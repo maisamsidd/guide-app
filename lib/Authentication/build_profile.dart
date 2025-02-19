@@ -19,6 +19,9 @@ class SignUpBuild extends StatefulWidget {
 
 class _SignUpBuildState extends State<SignUpBuild> {
   final fireStore = FirebaseFirestore.instance.collection("users");
+  final nameController = TextEditingController();
+  final conditionController = TextEditingController();
+  final numberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final auth = FirebaseAuth.instance;
@@ -26,9 +29,6 @@ class _SignUpBuildState extends State<SignUpBuild> {
     final userid = currentUser!.uid;
     final email = currentUser!.email;
 
-    final nameController = TextEditingController();
-    final conditionController = TextEditingController();
-    final numberController = TextEditingController();
     mq = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -42,76 +42,78 @@ class _SignUpBuildState extends State<SignUpBuild> {
         ),
         backgroundColor: MyColors.orangeColor,
         body: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: mq.height * 0.15,
-              ),
-              Container(
-                width: mq.width * 0.85,
-                height: mq.height * 0.5,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LsTextField(
-                      hintText: "John Doe",
-                      labelText: "Full name",
-                      controller: nameController,
-                    ),
-                    LsTextField(
-                      hintText: "e.g Diabetes",
-                      labelText: "Condition",
-                      controller: conditionController,
-                    ),
-                    LsTextField(
-                      hintText: "contact number",
-                      labelText: "+123457789",
-                      controller: numberController,
-                    ),
-                    SizedBox(
-                      height: mq.height * 0.06,
-                    ),
-                    LsButton(
-                      ontap: () {
-                        try {
-                          if (currentUser != null) {
-                            fireStore.doc(userid).set({
-                              "email": email,
-                              "name": nameController.text,
-                              "condition": conditionController.text,
-                              "contact_number": numberController.text
-                            }).then((onValue) {
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: mq.height * 0.1,
+                ),
+                Container(
+                  width: mq.width * 0.85,
+                  height: mq.height * 0.5,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LsTextField(
+                        hintText: "John",
+                        labelText: "Full name",
+                        controller: nameController,
+                      ),
+                      LsTextField(
+                        hintText: "e.g Doe",
+                        labelText: "Last name",
+                        controller: conditionController,
+                      ),
+                      LsTextField(
+                        hintText: "contact number",
+                        labelText: "+123457789",
+                        controller: numberController,
+                      ),
+                      SizedBox(
+                        height: mq.height * 0.06,
+                      ),
+                      LsButton(
+                        ontap: () {
+                          try {
+                            if (currentUser != null) {
+                              fireStore.doc(userid).set({
+                                "userId": userid,
+                                "email": email,
+                                "name": nameController.text,
+                                "condition": conditionController.text,
+                                "contact_number": numberController.text
+                              });
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HomePage()));
-                            });
-                          } else {
+                                      builder: (context) => const HomePage()));
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("User is not logged in"),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text("User is not logged in"),
+                                content: Text("Some error"),
                                 backgroundColor: Colors.red,
                               ),
                             );
                           }
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Some error"),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        }
-                      },
-                      text: "Save",
-                    )
-                  ],
-                ),
-              )
-            ],
+                        },
+                        text: "Save",
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

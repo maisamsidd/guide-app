@@ -96,14 +96,14 @@ class Wishlist extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                Get.to(() => const CartPage());
+                // Get.to(() => const CartPage());
               },
               icon: Icon(Icons.shopping_cart_checkout_outlined,
                   size: 30, color: MyColors.whiteColor),
             ),
             IconButton(
               onPressed: () {
-                Get.to(() => const ItemDetail());
+                // Get.to(() => const ItemDetail());
               },
               icon: Icon(
                 Icons.bookmark_outline,

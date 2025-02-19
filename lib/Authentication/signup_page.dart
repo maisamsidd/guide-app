@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:guide_app/Authentication/build_profile.dart';
 import 'package:guide_app/VIews/HomePage/home_page.dart';
 
 import '../main.dart';
@@ -86,7 +87,7 @@ class _SignupPageState extends State<SignupPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => HomePage(),
+                                      builder: (context) => SignUpBuild(),
                                     ));
                               });
                             } else {

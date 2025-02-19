@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:guide_app/VIews/HomePage/Wishlist.dart';
@@ -37,7 +36,7 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0), // Add consistent padding
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
                 Row(
@@ -46,13 +45,18 @@ class HomePage extends StatelessWidget {
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: "Search...",
+                          filled: true,
+                          fillColor: Colors.grey[200],
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(100),
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide.none,
                           ),
                           contentPadding: const EdgeInsets.symmetric(
-                            vertical: 10,
+                            vertical: 15,
                             horizontal: 20,
                           ),
+                          prefixIcon:
+                              Icon(Icons.search, color: MyColors.orangeColor),
                         ),
                       ),
                     ),
@@ -67,7 +71,7 @@ class HomePage extends StatelessWidget {
                     IconButton(
                       onPressed: () {},
                       icon: Icon(
-                        Icons.notification_important_outlined,
+                        Icons.notifications,
                         color: MyColors.orangeColor,
                       ),
                     ),
@@ -76,32 +80,27 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: mq.height * 0.02),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildCategory("assets/images/mueseumicon.png", "Mueseum"),
-                    const SizedBox(width: 5),
-                    buildCategory(
-                        "assets/images/entry tickets.png", "Entry tickets"),
-                    const SizedBox(width: 5),
-                    buildCategory(
-                        "assets/images/guided tours.png", "guided tours"),
-                    const SizedBox(width: 10),
-                    // buildCategory("assets/images/hotel.png", "Hotels"),
-                    // const SizedBox(width: 25),
-                    // buildCategory("assets/images/internet.png", "eSim"),
+                    buildCategory("assets/images/mueseumicon.png", "Museum"),
+                    buildCategory("assets/images/entry tickets.png", "Tickets"),
+                    buildCategory("assets/images/guided tours.png", "Tours"),
                   ],
                 ),
                 SizedBox(height: mq.height * 0.03),
                 const Text(
-                  "Likely to sell out",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  "Likely to Sell Out",
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87),
                 ),
+                SizedBox(height: mq.height * 0.02),
                 CarouselSlider(
                   items: sellerImages.map((sellerImages) {
                     return buildCarouselItemForTopSeller(sellerImages);
                   }).toList(),
                   options: CarouselOptions(
-                    autoPlay: false,
+                    autoPlay: true,
                     enlargeCenterPage: true,
                     autoPlayCurve: Curves.fastOutSlowIn,
                     enableInfiniteScroll: true,
@@ -110,39 +109,15 @@ class HomePage extends StatelessWidget {
                     viewportFraction: 0.9,
                   ),
                 ),
-                // const Align(
-                //   alignment: Alignment.centerLeft,
-                //   child: Text(
-                //     "Where to next?",
-                //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                //   ),
-                // ),
-                // SizedBox(height: mq.height * 0.02),
-                // SizedBox(
-                //   width: mq.width * 0.9,
-                //   height: mq.height * 0.085,
-                //   child: CarouselSlider(
-                //     items: carouselItems.map((item) {
-                //       return buildCarouselItem(
-                //           "assets/images/images.jpeg", "Japan");
-                //     }).toList(),
-                //     options: CarouselOptions(
-                //       autoPlay: true,
-                //       enlargeCenterPage: true,
-                //       autoPlayCurve: Curves.fastOutSlowIn,
-                //       enableInfiniteScroll: true,
-                //       autoPlayAnimationDuration:
-                //           const Duration(milliseconds: 800),
-                //       viewportFraction: 0.55,
-                //     ),
-                //   ),
-                // ),
                 SizedBox(height: mq.height * 0.03),
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Experiences",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87),
                   ),
                 ),
                 SizedBox(height: mq.height * 0.03),
@@ -151,24 +126,30 @@ class HomePage extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: imagesString.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.8,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
                   itemBuilder: (context, snapshot) {
                     return GestureDetector(
                       onTap: () {
-                        Get.to(() => const ItemDetail());
+                        Get.to(() => ItemDetail(
+                              title: names[snapshot],
+                              image: imagesString[snapshot],
+                              price: "\$ 20,000",
+                              rating: "4.7",
+                              reviews: "(3,999)",
+                              subtitle: "Train tickets",
+                            ));
                       },
-                      child: GridTile(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 2, horizontal: 10),
-                          child: buildGridItem(
-                              imagesString[snapshot],
-                              names[snapshot],
-                              "Train tickets",
-                              "4.7",
-                              "(3,999)",
-                              "\$ 20,000"),
-                        ),
+                      child: buildGridItem(
+                        imagesString[snapshot],
+                        names[snapshot],
+                        "Train tickets",
+                        "4.7",
+                        "(3,999)",
+                        "\$ 20,000",
                       ),
                     );
                   },
@@ -185,137 +166,191 @@ class HomePage extends StatelessWidget {
   Column buildCategory(String imagePath, String label) {
     return Column(
       children: [
-        SizedBox(width: 30, height: 30, child: Image.asset(imagePath)),
+        Container(
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            color: MyColors.orangeColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Center(
+            child: Image.asset(imagePath, width: 30, height: 30),
+          ),
+        ),
         const SizedBox(height: 10),
-        Text(label),
+        Text(label,
+            style:
+                TextStyle(color: Colors.black87, fontWeight: FontWeight.bold)),
       ],
     );
   }
 
-  Container buildCarouselItem(String imagePath, String label) {
+  Container buildCarouselItemForTopSeller(String imagePath) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
-        color: MyColors.greyColor,
-        borderRadius: BorderRadius.circular(100),
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            spreadRadius: 2,
+            offset: const Offset(2, 4),
+          ),
+        ],
       ),
-      child: Row(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15),
+        child: Stack(
+          children: [
+            Image.asset(
+              imagePath,
+              width: double.infinity,
+              height: 200,
+              fit: BoxFit.cover,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    Colors.black.withOpacity(0.5),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              left: 10,
+              child: Text(
+                "Top Seller",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container buildGridItem(String imagePath, String title, String subtitle,
+      String rating, String reviews, String price) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            spreadRadius: 2,
+            offset: const Offset(2, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 100,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
             child: Image.asset(
               imagePath,
-              fit: BoxFit.fill,
+              width: double.infinity,
+              height: 120,
+              fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(width: 20),
-          Text(
-            label,
-            style: const TextStyle(fontSize: 18),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black87),
+                ),
+                Text(
+                  subtitle,
+                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.star, color: MyColors.orangeColor, size: 16),
+                    Text(rating,
+                        style: TextStyle(
+                            color: MyColors.orangeColor, fontSize: 14)),
+                    Text(reviews,
+                        style:
+                            TextStyle(color: Colors.grey[600], fontSize: 14)),
+                  ],
+                ),
+                Text(
+                  price,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black87),
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  Container buildCarouselItemForTopSeller(String imagePath) {
+  Container buildBottomNavigationBar() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: MyColors.whiteColor,
-      ),
-      child: SizedBox(
-        width: 300,
-        child: Image.asset(
-          imagePath,
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-
-  Column buildGridItem(String imagePath, String title, String subtitle,
-      String rating, String reviews, String price) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: double.infinity,
-          height: 90,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Image.asset(
-            imagePath,
-            fit: BoxFit.fill,
-          ),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-        ),
-        Text(subtitle,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-        Row(
-          children: [
-            Text(rating, style: TextStyle(color: MyColors.orangeColor)),
-            Text(reviews, style: TextStyle(color: MyColors.BlackColor)),
-          ],
-        ),
-        Text(price, style: const TextStyle(fontWeight: FontWeight.bold))
-      ],
-    );
-  }
-
-  Padding buildBottomNavigationBar() {
-    return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-      child: Container(
-        decoration: BoxDecoration(
-          color: MyColors.orangeColor,
-          borderRadius: BorderRadius.circular(50),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              onPressed: () {
-                Get.to(() => const Wishlist());
-              },
-              icon: Icon(Icons.favorite_border_outlined,
-                  size: 30, color: MyColors.whiteColor),
-            ),
-            IconButton(
-              onPressed: () {
-                Get.to(() => const CartPage());
-              },
-              icon: Icon(Icons.shopping_cart_checkout_outlined,
-                  size: 30, color: MyColors.whiteColor),
-            ),
-            IconButton(
-              onPressed: () {
-                Get.to(() => const ItemDetail());
-              },
-              icon: Icon(
-                Icons.bookmark_outline,
-                size: 30,
-                color: MyColors.whiteColor,
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                Get.to(() => const SettingsPage());
-              },
-              icon: Icon(Icons.person_2_outlined,
-                  size: 30, color: MyColors.whiteColor),
-            ),
-          ],
-        ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            spreadRadius: 5,
+            offset: const Offset(0, -5),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            onPressed: () {
+              Get.to(() => const Wishlist());
+            },
+            icon: Icon(Icons.favorite_border,
+                size: 30, color: MyColors.orangeColor),
+          ),
+          // IconButton(
+          //   onPressed: () {
+          //     Get.to(() => const CartPage());
+          //   },
+          //   icon: Icon(Icons.shopping_cart, size: 30, color: MyColors.orangeColor),
+          // ),
+          // IconButton(
+          //   onPressed: () {
+          //     Get.to(() => const ItemDetail());
+          //   },
+          // icon: Icon(Icons.bookmark_border, size: 30, color: MyColors.orangeColor),
+          // ),
+          IconButton(
+            onPressed: () {
+              Get.to(() => const SettingsPage());
+            },
+            icon: Icon(Icons.person_outline,
+                size: 30, color: MyColors.orangeColor),
+          ),
+        ],
       ),
     );
   }
