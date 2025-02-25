@@ -4,10 +4,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:guide_app/VIews/HomePage/home_page.dart';
 
-import '../main.dart';
-import '../utils/app_colors.dart';
-import '../widgets/Buttons/ls_button.dart';
-import '../widgets/TextFields/login/ls_textfield.dart';
+import '../../main.dart';
+import '../../utils/app_colors.dart';
+import '../../widgets/Buttons/ls_button.dart';
+import '../../widgets/TextFields/login/ls_textfield.dart';
 import 'signup_page.dart';
 
 class LoginPage extends StatelessWidget {

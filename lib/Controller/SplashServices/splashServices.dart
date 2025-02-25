@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:guide_app/Authentication/login_page.dart';
+import 'package:guide_app/VIews/Authentication/login_page.dart';
 import 'package:guide_app/VIews/HomePage/home_page.dart';
 
 class Splashservices {

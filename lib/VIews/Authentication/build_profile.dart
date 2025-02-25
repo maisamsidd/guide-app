@@ -5,10 +5,10 @@ import 'package:guide_app/VIews/HomePage/home_page.dart';
 import 'package:guide_app/widgets/Buttons/ls_button.dart';
 import 'package:guide_app/widgets/TextFields/login/ls_textfield.dart';
 
-import '../../main.dart';
-import '../utils/app_colors.dart';
-import '../widgets/Buttons/profile_build_button.dart';
-import '../widgets/TextFields/login/profile_build_textfield.dart';
+import '../../../main.dart';
+import '../../utils/app_colors.dart';
+import '../../widgets/Buttons/profile_build_button.dart';
+import '../../widgets/TextFields/login/profile_build_textfield.dart';
 
 class SignUpBuild extends StatefulWidget {
   const SignUpBuild({super.key});
@@ -46,7 +46,7 @@ class _SignUpBuildState extends State<SignUpBuild> {
             child: Column(
               children: [
                 SizedBox(
-                  height: mq.height * 0.1,
+                  height: mq.height * 0.05,
                 ),
                 Container(
                   width: mq.width * 0.85,

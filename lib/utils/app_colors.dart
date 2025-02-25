@@ -6,5 +6,5 @@ class MyColors {
   static Color greyColor = const Color.fromARGB(255, 235, 227, 227);
   static Color orangeColor = Colors.orange;
   static Color blueColor = const Color.fromARGB(255, 36, 117, 240);
-  static Color liteColor = const Color.fromARGB(255, 212, 150, 57);
+  static Color liteColor = const Color.fromARGB(255, 245, 190, 108);
 }

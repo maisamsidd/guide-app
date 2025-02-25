@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:guide_app/Authentication/login_page.dart';
+import 'package:guide_app/VIews/Authentication/login_page.dart';
 import 'package:guide_app/VIews/HomePage/Wishlist.dart';
-import 'package:guide_app/VIews/HomePage/cart.dart';
-import 'package:guide_app/VIews/HomePage/item_detail.dart';
+import 'package:guide_app/VIews/Cart_Exp_ItemDet_Page/cart.dart';
+import 'package:guide_app/VIews/Cart_Exp_ItemDet_Page/item_detail.dart';
 import 'package:guide_app/utils/app_colors.dart';
 
 class SettingsPage extends StatefulWidget {

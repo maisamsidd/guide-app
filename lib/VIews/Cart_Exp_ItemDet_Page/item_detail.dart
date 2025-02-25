@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:guide_app/VIews/HomePage/cart.dart';
+import 'package:guide_app/VIews/Cart_Exp_ItemDet_Page/cart.dart';
 import 'package:guide_app/main.dart';
 import 'package:guide_app/utils/app_colors.dart';
 

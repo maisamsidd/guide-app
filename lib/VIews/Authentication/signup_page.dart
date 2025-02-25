@@ -2,13 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:guide_app/Authentication/build_profile.dart';
+import 'package:guide_app/VIews/Authentication/build_profile.dart';
 import 'package:guide_app/VIews/HomePage/home_page.dart';
 
-import '../main.dart';
-import '../utils/app_colors.dart';
-import '../widgets/Buttons/ls_button.dart';
-import '../widgets/TextFields/login/ls_textfield.dart';
+import '../../main.dart';
+import '../../utils/app_colors.dart';
+import '../../widgets/Buttons/ls_button.dart';
+import '../../widgets/TextFields/login/ls_textfield.dart';
 import 'login_page.dart';
 
 class SignupPage extends StatefulWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guide_app/VIews/Cart_Exp_ItemDet_Page/cart_fill_page.dart';
 import 'package:guide_app/main.dart';
 import 'package:guide_app/utils/app_colors.dart';
 
@@ -29,9 +30,12 @@ class _CartPageState extends State<CartPage> {
     mq = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Shopping Cart",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              color: MyColors.whiteColor),
         ),
         centerTitle: true,
         backgroundColor: MyColors.orangeColor,
@@ -124,8 +128,6 @@ class _CartPageState extends State<CartPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                _buildActionButton("Edit", MyColors.greyColor,
-                                    Icons.edit, () {}),
                                 _buildActionButton("", MyColors.greyColor,
                                     Icons.delete, () {}),
                               ],
@@ -155,7 +157,7 @@ class _CartPageState extends State<CartPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Total: \$${widget.price}",
+              "Total: ${widget.price}",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -172,7 +174,10 @@ class _CartPageState extends State<CartPage> {
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 14),
                 elevation: 4,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartFillPage()));
+              },
               child: Text(
                 "Go to Checkout",
                 style: TextStyle(
