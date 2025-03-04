@@ -2,12 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:guide_app/Controller/AuthController/auth_controller.dart';
 import 'package:guide_app/VIews/Authentication/build_profile.dart';
 import 'package:guide_app/VIews/HomePage/home_page.dart';
+import 'package:guide_app/widgets/Buttons/ls_button.dart';
 
 import '../../main.dart';
 import '../../utils/app_colors.dart';
-import '../../widgets/Buttons/ls_button.dart';
 import '../../widgets/TextFields/login/ls_textfield.dart';
 import 'login_page.dart';
 
@@ -21,7 +22,6 @@ class SignupPage extends StatefulWidget {
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 final TextEditingController confirmPasswordController = TextEditingController();
-final auth = FirebaseAuth.instance;
 
 class _SignupPageState extends State<SignupPage> {
   @override
@@ -76,26 +76,13 @@ class _SignupPageState extends State<SignupPage> {
                       LsButton(
                         text: "Sign Up",
                         ontap: () {
-                          try {
-                            if (passwordController.text ==
-                                confirmPasswordController.text) {
-                              auth
-                                  .createUserWithEmailAndPassword(
-                                      email: emailController.text,
-                                      password: passwordController.text)
-                                  .then((onValue) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SignUpBuild(),
-                                    ));
-                              });
-                            } else {
-                              Get.snackbar("Error", "Password doesn't match");
-                            }
-                          } catch (e) {
-                            Get.snackbar("Error", e.toString());
-                          }
+                          setState(() {
+                            AuthController.signUpUser(
+                                emailController.text,
+                                passwordController.text,
+                                confirmPasswordController.text,
+                                context);
+                          });
                         },
                       ),
                       SizedBox(

@@ -1,14 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:guide_app/VIews/HomePage/home_page.dart';
+import 'package:guide_app/utils/Apis_utils.dart';
 import 'package:guide_app/widgets/Buttons/ls_button.dart';
 import 'package:guide_app/widgets/TextFields/login/ls_textfield.dart';
 
 import '../../../main.dart';
 import '../../utils/app_colors.dart';
-import '../../widgets/Buttons/profile_build_button.dart';
-import '../../widgets/TextFields/login/profile_build_textfield.dart';
 
 class SignUpBuild extends StatefulWidget {
   const SignUpBuild({super.key});
@@ -18,17 +15,11 @@ class SignUpBuild extends StatefulWidget {
 }
 
 class _SignUpBuildState extends State<SignUpBuild> {
-  final fireStore = FirebaseFirestore.instance.collection("users");
   final nameController = TextEditingController();
   final conditionController = TextEditingController();
   final numberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final auth = FirebaseAuth.instance;
-    final currentUser = auth.currentUser;
-    final userid = currentUser!.uid;
-    final email = currentUser!.email;
-
     mq = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -78,10 +69,12 @@ class _SignUpBuildState extends State<SignUpBuild> {
                       LsButton(
                         ontap: () {
                           try {
-                            if (currentUser != null) {
-                              fireStore.doc(userid).set({
-                                "userId": userid,
-                                "email": email,
+                            if (ApisUtils.currentUser != null) {
+                              ApisUtils.usersCollection
+                                  .doc(ApisUtils.currentUser!.uid)
+                                  .set({
+                                "userId": ApisUtils.currentUser!.uid,
+                                "email": ApisUtils.currentUser!.email,
                                 "name": nameController.text,
                                 "condition": conditionController.text,
                                 "contact_number": numberController.text

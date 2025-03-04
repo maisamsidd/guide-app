@@ -4,4 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class ApisUtils {
   static FirebaseAuth auth = FirebaseAuth.instance;
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
+  static final usersCollection = FirebaseFirestore.instance.collection("users");
+  static final currentUser = auth.currentUser;
 }

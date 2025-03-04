@@ -1,10 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:guide_app/VIews/HomePage/Wishlist.dart';
-import 'package:guide_app/VIews/Cart_Exp_ItemDet_Page/cart.dart';
+import 'package:guide_app/VIews/Wishlist/Wishlist.dart';
 import 'package:guide_app/VIews/Cart_Exp_ItemDet_Page/item_detail.dart';
-import 'package:guide_app/VIews/HomePage/settings_page.dart';
+import 'package:guide_app/VIews/Settings_Page/settings_page.dart';
 import 'package:guide_app/utils/app_colors.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,14 +11,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> carouselItems = [
-      "Explore Japan",
-      "Discover Paris",
-      "Visit New York",
-      "Relax in Bali",
-      "Experience London",
-    ];
-
     final List<String> imagesString = [
       "assets/images/12.jpg",
       "assets/images/13.jpg",
@@ -269,7 +260,7 @@ class HomePage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               vertical: 2, horizontal: 10),
                           child: Container(
-                            height: 400,
+                            height: 12,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,25 +1,25 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:guide_app/VIews/HomePage/home_page.dart';
-
+import 'package:guide_app/Controller/AuthController/auth_controller.dart';
 import '../../main.dart';
 import '../../utils/app_colors.dart';
 import '../../widgets/Buttons/ls_button.dart';
 import '../../widgets/TextFields/login/ls_textfield.dart';
 import 'signup_page.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
 
-    final auth = FirebaseAuth.instance;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -63,25 +63,13 @@ class LoginPage extends StatelessWidget {
                         height: mq.height * 0.02,
                       ),
                       LsButton(
-                        text: "Login",
-                        ontap: () {
-                          try {
-                            auth
-                                .signInWithEmailAndPassword(
-                                    email: emailController.text,
-                                    password: passwordController.text)
-                                .then((onValue) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomePage(),
-                                  ));
+                          text: "Login",
+                          ontap: () {
+                            setState(() {
+                              AuthController.loginUser(emailController.text,
+                                  passwordController.text, context);
                             });
-                          } catch (e) {
-                            Get.snackbar("Error", e.toString());
-                          }
-                        },
-                      ),
+                          }),
                       SizedBox(
                         height: mq.height * 0.02,
                       ),
