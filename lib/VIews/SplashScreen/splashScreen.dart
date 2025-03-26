@@ -1,8 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-
-import '../../Controller/SplashServices/splashServices.dart';
-import '../../main.dart';
-import '../../utils/app_colors.dart';
+import 'package:get/get.dart';
+import 'package:guide_app/Controller/AuthController/auth_gateway.dart';
+import 'package:guide_app/main.dart';
+import 'package:guide_app/utils/app_colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,12 +13,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  Splashservices splash = Splashservices();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    splash.splashServices(context);
+
+    // Wait for 3 seconds then navigate to AuthGateway
+    Timer(const Duration(seconds: 3), () {
+      Get.off(() => const AuthGateway()); // Removes SplashScreen from stack
+    });
   }
 
   @override

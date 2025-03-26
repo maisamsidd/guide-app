@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:guide_app/Controller/AuthController/authController.dart';
 import 'package:guide_app/VIews/Authentication/login_page.dart';
 import 'package:guide_app/VIews/Wishlist/Wishlist.dart';
 
@@ -15,7 +15,17 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  final auth = FirebaseAuth.instance;
+  final authService = AuthService();
+
+  void logout() async {
+    try {
+      await authService.signOut();
+      Get.offAll(() => const LoginPage());
+    } catch (e) {
+      print('Logout failed: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,37 +64,7 @@ class _SettingsPageState extends State<SettingsPage> {
             Container(
               width: double.infinity,
               height: 80,
-              decoration: BoxDecoration(color: MyColors.liteColor),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Settings",
-                      style:
-                          TextStyle(color: MyColors.whiteColor, fontSize: 18),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Notifications",
-                    style: TextStyle(color: MyColors.whiteColor, fontSize: 18),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 80,
-              decoration: BoxDecoration(color: MyColors.liteColor),
+              decoration: BoxDecoration(color: MyColors.orangeColor),
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),
@@ -117,18 +97,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Legal",
-                    style: TextStyle(color: MyColors.whiteColor, fontSize: 18),
-                  ),
-                ),
-              ),
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
                     "Privacy Policy",
                     style: TextStyle(color: MyColors.whiteColor, fontSize: 18),
                   ),
@@ -145,14 +113,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: InkWell(
-                      onTap: () {
-                        auth.signOut().then((onValue) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage()));
-                        });
-                      },
+                      onTap: () => logout(),
                       child: Text(
                         "Logout",
                         style:

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:guide_app/VIews/Cart_Exp_ItemDet_Page/Check_availability.dart';
@@ -14,32 +13,32 @@ class CartFillPage extends StatefulWidget {
 }
 
 class _CartFillPageState extends State<CartFillPage> {
-  final fireStore = FirebaseFirestore.instance.collection("users");
   final nameController = TextEditingController();
   final conditionController = TextEditingController();
   final numberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: MyColors.orangeColor,
-          title: Text("Reservation details",
-              style: TextStyle(
-                  color: MyColors.BlackColor,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold)),
-        ),
+    return Scaffold(
+      appBar: AppBar(
         backgroundColor: MyColors.orangeColor,
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                // SizedBox(
-                //   height: mq.height * 0,
-                // ),
-                Container(
+        title: Text("Reservation details",
+            style: TextStyle(
+                color: MyColors.whiteColor,
+                fontSize: 30,
+                fontWeight: FontWeight.bold)),
+      ),
+      backgroundColor: MyColors.orangeColor,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Material(
+                borderRadius: BorderRadius.circular(12),
+                elevation: 40,
+                child: Container(
                   width: mq.width * 0.85,
                   height: mq.height * 0.5,
                   decoration: BoxDecoration(
@@ -77,9 +76,9 @@ class _CartFillPageState extends State<CartFillPage> {
                           elevation: 4,
                         ),
                         onPressed: () {
-                          Get.to(() => CalendarPage());
+                          Get.to(() => const CalendarPage());
                         },
-                        child: Text(
+                        child: const Text(
                           "check availability",
                           style: TextStyle(
                             fontSize: 18,
@@ -90,9 +89,9 @@ class _CartFillPageState extends State<CartFillPage> {
                       ),
                     ],
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),

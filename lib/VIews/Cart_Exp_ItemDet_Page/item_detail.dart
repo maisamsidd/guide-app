@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:guide_app/VIews/Cart_Exp_ItemDet_Page/cart.dart';
+import 'package:guide_app/VIews/Cart_Exp_ItemDet_Page/cart_fill_page.dart';
 import 'package:guide_app/main.dart';
 import 'package:guide_app/utils/app_colors.dart';
 
@@ -13,7 +13,7 @@ class ItemDetail extends StatefulWidget {
   final String reviews;
   final String price;
 
-  ItemDetail({
+  const ItemDetail({
     super.key,
     required this.image,
     required this.title,
@@ -50,7 +50,7 @@ class _ItemDetailState extends State<ItemDetail> {
               /// **Activity Image**
               ClipRRect(
                 borderRadius: BorderRadius.circular(15),
-                child: Image.asset(
+                child: Image.network(
                   widget.image,
                   width: double.infinity,
                   height: mq.height * 0.3,
@@ -84,7 +84,7 @@ class _ItemDetailState extends State<ItemDetail> {
                       const SizedBox(height: 12),
                       Row(
                         children: [
-                          Icon(Icons.star, color: Colors.amber, size: 20),
+                          const Icon(Icons.star, color: Colors.amber, size: 20),
                           const SizedBox(width: 5),
                           Text(
                             "${widget.rating} (${widget.reviews} reviews)",
@@ -155,16 +155,17 @@ class _ItemDetailState extends State<ItemDetail> {
                             padding: const EdgeInsets.symmetric(vertical: 14),
                           ),
                           onPressed: () {
-                            Get.to(() => CartPage(
-                                  image: widget.image,
-                                  title: widget.title,
-                                  subtitle: widget.subtitle,
-                                  rating: widget.rating,
-                                  reviews: widget.reviews,
-                                  price: widget.price,
-                                ));
+                            // Get.to(() => CartPage(
+                            //       image: widget.image,
+                            //       title: widget.title,
+                            //       subtitle: widget.subtitle,
+                            //       rating: widget.rating,
+                            //       reviews: widget.reviews,
+                            //       price: widget.price,
+                            //     ));
+                            Get.to(() => CartFillPage());
                           },
-                          child: Text("Add to cart",
+                          child: Text("Proceed",
                               style: TextStyle(
                                   color: MyColors.whiteColor,
                                   fontSize: 18,
@@ -191,7 +192,7 @@ class _ItemDetailState extends State<ItemDetail> {
         leading: Icon(Icons.info, color: MyColors.orangeColor),
         title: Text(
           title,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         subtitle: Text(subtitle),
       ),

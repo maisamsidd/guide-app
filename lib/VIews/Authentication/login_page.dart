@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:guide_app/Controller/AuthController/auth_controller.dart';
-import '../../main.dart';
-import '../../utils/app_colors.dart';
-import '../../widgets/Buttons/ls_button.dart';
-import '../../widgets/TextFields/login/ls_textfield.dart';
-import 'signup_page.dart';
+
+import 'package:get/get.dart';
+import 'package:guide_app/Controller/AuthController/authController.dart';
+import 'package:guide_app/VIews/Authentication/signup_page.dart';
+import 'package:guide_app/VIews/HomePage/home_page.dart';
+import 'package:guide_app/main.dart';
+import 'package:guide_app/utils/app_colors.dart';
+import 'package:guide_app/widgets/Buttons/ls_button.dart';
+import 'package:guide_app/widgets/TextFields/login/ls_textfield.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,11 +17,29 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final authService = AuthService();
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  Future<void> login() async {
+    try {
+      final response = await authService.signIn(
+          emailController.text.trim(), passwordController.text.trim());
+
+      if (response.user != null) {
+        Get.offAll(() => const HomePage()); // Navigate after successful signup
+      } else {
+        Get.snackbar("Error", "Login failed");
+      }
+    } catch (e) {
+      Get.snackbar("Error: ", e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
 
     return SafeArea(
       child: Scaffold(
@@ -64,11 +85,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       LsButton(
                           text: "Login",
-                          ontap: () {
-                            setState(() {
-                              AuthController.loginUser(emailController.text,
-                                  passwordController.text, context);
-                            });
+                          ontap: () async {
+                            await login();
                           }),
                       SizedBox(
                         height: mq.height * 0.02,
@@ -78,13 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           const Text("Not a member?"),
                           TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SignupPage()));
-                              },
+                              onPressed: () => Get.to(() => const SignupPage()),
                               child: const Text(
                                 "Create a free account",
                                 style: TextStyle(color: Colors.blue),
